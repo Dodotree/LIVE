@@ -82,28 +82,6 @@ class DataPoint:
     # Return the distance moved.
 
     def reposition_seed(self, points):
-        if not points:
-            return 0
-
-        # Calculate the centroid of the points
-        total_x = sum(point.x for point in points)
-        total_y = sum(point.y for point in points)
-        centroid_x = total_x / len(points)
-        centroid_y = total_y / len(points)
-
-        # Calculate the distance the seed will move
-        dx = centroid_x - self.x
-        dy = centroid_y - self.y
-        distance_moved = math.sqrt(dx**2 + dy**2)
-
-        # Update the seed's coordinates and move its oval
-        self.x = centroid_x
-        self.y = centroid_y
-        self.move()
-
-        return distance_moved
-
-    def reposition_seed(self, points):
         # Add up the assigned points' coordinates and count the points.
         total_x = 0
         total_y = 0
