@@ -204,22 +204,22 @@ residual=decomposition.resid
 trend=decomposition.trend
 seasonal=decomposition.seasonal
 
-plt.subplot(221)
-plt.plot(tseries,color='#ff0000', label='Series')
-plt.legend(loc='best')
-plt.subplot(222)
-plt.plot(trend,color='#1100ff', label='Trend')
-plt.legend(loc='best')
-plt.tight_layout()
-plt.subplot(223)
-plt.plot(residual,color='#00ff1a', label='Residual')
-plt.legend(loc='best')
-plt.tight_layout()
-plt.subplot(224)
-plt.plot(seasonal,color='#de00ff', label='Seasonality')
-plt.legend(loc='best')
-plt.tight_layout()
-plt.show()
+#plt.subplot(221)
+#plt.plot(tseries,color='#ff0000', label='Series')
+#plt.legend(loc='best')
+#plt.subplot(222)
+#plt.plot(trend,color='#1100ff', label='Trend')
+#plt.legend(loc='best')
+#plt.tight_layout()
+#plt.subplot(223)
+#plt.plot(residual,color='#00ff1a', label='Residual')
+#plt.legend(loc='best')
+#plt.tight_layout()
+#plt.subplot(224)
+#plt.plot(seasonal,color='#de00ff', label='Seasonality')
+#plt.legend(loc='best')
+#plt.tight_layout()
+#plt.show()
 
 
 # In[14]:
@@ -250,7 +250,8 @@ plot_acf(df.IsCanceled, lags=100, zero=False);
 # In[17]:
 
 
-pacf(tseries, nlags=100)
+#pacf(tseries, nlags=100)
+pacf(tseries, nlags=56)
 
 
 # In[18]:
@@ -262,7 +263,6 @@ plot_pacf(df.IsCanceled, lags=10, zero=False);
 # ### Moving Average
 
 # In[19]:
-
 
 window_size = 4
 
@@ -279,14 +279,34 @@ print(ts4)
 # In[20]:
 
 
-n1=math.nan
-n4=np.array([n1,n1,n1,n1])
-ts4=np.concatenate([n4,ts4])
-plt.plot(tseries)
-plt.plot(ts4)
-plt.title("4-period Simple Moving Average")
-plt.show()
+#n1=math.nan
+#n4=np.array([n1,n1,n1,n1])
+#ts4=np.concatenate([n4,ts4])
+#plt.plot(tseries)
+#plt.plot(ts4)
+#plt.title("4-period Simple Moving Average")
+#plt.show()
 
+import matplotlib.dates as mdates
+
+n1 = math.nan
+n4 = np.array([n1, n1, n1, n1])
+ts4 = np.concatenate([n4, ts4])
+
+fig, ax = plt.subplots()
+ax.plot(tseries)
+ax.plot(ts4)
+
+# Format x-axis labels as MM:DD and rotate them
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%m:%d'))
+plt.xticks(rotation=45)
+
+# Reduce the number of x-axis ticks
+ax.xaxis.set_major_locator(mdates.DayLocator(interval=7))  # One tick per week
+
+plt.title("4-period Simple Moving Average")
+plt.tight_layout()  # Adjust subplot parameters to give specified padding
+plt.show()
 
 # ### Train-Test Split
 
